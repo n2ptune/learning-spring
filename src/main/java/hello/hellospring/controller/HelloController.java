@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Optional;
+
 @Controller
 public class HelloController {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
@@ -20,8 +22,9 @@ public class HelloController {
     public String hello(Model model) {
         model.addAttribute("data", "hello!!");
 
-        Member member = memberService.getMember(new Long(1));
-        log.info("{}", member.getName());
+        Optional<Member> member = memberService.getMember(new Long(1));
+
+        log.info("{}", member.get().getName());
 
         return "hello";
     }
